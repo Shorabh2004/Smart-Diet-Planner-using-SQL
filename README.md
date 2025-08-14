@@ -104,3 +104,11 @@ JOIN food_items f ON (
 )
 ORDER BY u.full_name;
 
+
+## 🚀 How to Run These Queries
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/yourusername/smart-diet-planner.git
+cd smart-diet-planner
+
