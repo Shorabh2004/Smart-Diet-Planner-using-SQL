@@ -1,45 +1,88 @@
 # 🥗 Smart Diet Planner – MySQL Project
 
 ## 📌 Project Overview
-The **Smart Diet Planner** is a database-driven project built in **MySQL** to manage users' dietary needs, activity levels, allergies, medical conditions, and personalized diet plans.  
-It can be used by nutritionists, health trainers, or fitness apps to suggest optimized meal plans based on user preferences and health conditions.
+The **Smart Diet Planner** is a MySQL-based project designed to manage and generate diet plans for users based on their **activity levels, health conditions, allergies, and goals**.  
+It provides an organized database structure for storing **users, food items, meal plans, and nutrition data**, along with helpful views to calculate daily and meal-wise nutrition totals.
 
 ---
 
-## 🎯 Features
-- **User Management**: Store personal details, body measurements, and fitness goals.
-- **Activity Levels**: Adjust calorie requirements using activity multipliers.
-- **Allergy Tracking**: Avoid food items containing allergens for specific users.
-- **Medical Conditions**: Support for dietary restrictions based on health issues.
-- **Food Item Database**: Nutritional values for different food items (calories, protein, carbs, fats, sugar, sodium).
-- **Meal Planning**: Organize meals into breakfast, lunch, dinner, and snacks.
-- **Macros Calculation**: Automatic calculation of daily nutritional intake.
-- **Views for Reports**: Pre-built views for per-meal and daily nutritional summaries.
+## 🎯 Objectives
+- Store and manage **user health data** in an efficient way.
+- Automatically suggest diet plans based on **allergies, conditions, and goals**.
+- Keep a detailed **nutrition database** of food items.
+- Generate **meal macros and daily totals** using MySQL views.
+- Create a base for future integration with a web or mobile application.
 
 ---
 
-## 🗄 Database Schema
+## 🛠 How I Built It
+1. **Database Setup**
+   - Created a database named `smart_diet` in MySQL.
+   - Defined tables for users, food items, allergies, conditions, and diet plans.
+   - Added **foreign key constraints** for relational integrity.
 
-### **Tables**
-1. **activity_levels** – Stores calorie multipliers for different activity types.  
-2. **users** – Stores user personal data and dietary preferences.  
-3. **allergies** – List of possible allergies (nuts, lactose, gluten, etc.).  
-4. **user_allergies** – Junction table linking users with their allergies.  
-5. **conditions** – Medical conditions that impact diet (diabetes, hypertension, etc.).  
-6. **user_conditions** – Junction table linking users with their medical conditions.  
-7. **food_items** – Database of foods with nutritional information.  
-8. **diet_plans** – Stores meal plans for specific users.  
-9. **meals** – Individual meal entries within a diet plan.  
-10. **meal_items** – Food items included in each meal.  
-11. **v_meal_macros** *(View)* – Calculates total nutrients per meal.  
-12. **v_daily_totals** *(View)* – Summarizes daily nutritional intake.
+2. **Activity Levels Table**
+   - Added calorie multipliers for different activity categories (sedentary, light, moderate, active, very active, etc.).
+
+3. **User Table**
+   - Stored personal details like name, gender, height, weight, age, diet preference, and goals.
+
+4. **Allergies and Conditions**
+   - Created separate tables to store allergy types (nuts, lactose, gluten, etc.) and conditions (diabetes, hypertension, etc.).
+   - Used **junction tables** (`user_allergies`, `user_conditions`) to link multiple users to multiple allergies/conditions.
+
+5. **Food Items Table**
+   - Stored food name, serving size, calories, macronutrients, and whether it contains nuts, dairy, or gluten.
+
+6. **Diet Plans & Meals**
+   - Stored different meal plans for users.
+   - Linked meals with food items.
+   - Added **views**:
+     - `v_meal_macros` → Shows total nutrition for each meal.
+     - `v_daily_totals` → Shows total nutrition for each day.
+
+7. **Data Population**
+   - Inserted demo data for:
+     - Activity levels
+     - Users (49 demo entries)
+     - Allergies & conditions
+     - Food items
+
+8. **Backup & Export**
+   - Used `mysqldump` to export the database as `smart_diet.sql` for sharing and version control.
 
 ---
 
-## 🔧 Installation & Setup
+## ✨ Features
+- **User Health Profiles** → Stores and manages all health-related data.
+- **Custom Meal Plans** → Based on user goals (weight gain, loss, or maintenance).
+- **Allergy & Condition Filtering** → Avoids food items that can cause health risks.
+- **Nutrition Calculation** → Calculates calories, protein, carbs, fats, sugar, and sodium for each meal/day.
+- **Multiple Views** → Prebuilt queries for quick analysis.
+- **Data Backup** → Ready-to-import `.sql` file for easy setup.
 
-### **1️⃣ Import Database**
-1. Open **MySQL Command Line** or **Workbench**.
-2. Run:
-   ```sql
-   SOURCE path_to/smart_diet.sql;
+---
+
+## 🗄 Database Design
+**Tables Created:**
+1. `activity_levels`
+2. `users`
+3. `allergies`
+4. `user_allergies`
+5. `conditions`
+6. `user_conditions`
+7. `food_items`
+8. `diet_plans`
+9. `meals`
+10. `meal_items`
+
+**Views:**
+- `v_meal_macros`
+- `v_daily_totals`
+
+---
+
+## ⚡ Example Queries
+**1. Find vegan foods:**
+```sql
+SELECT food_name FROM food_items WHERE category = 'vegan';
