@@ -84,7 +84,6 @@ It provides an organized database structure for storing **users, food items, mea
 
 ## ⚡ Example Queries
 **1. Find vegan foods:**
-```sql
 SELECT food_name FROM food_items WHERE category = 'vegan';
 
 **2. Suggest Diet Plan for People with Allergies ** 
@@ -92,7 +91,7 @@ SELECT food_name FROM food_items WHERE category = 'vegan';
 This query suggests safe food options for users based on their allergies.  
 It checks if the food **does not contain** the allergen the user is allergic to.
 
-```sql
+
 SELECT DISTINCT u.full_name, f.food_name
 FROM users u
 JOIN user_allergies ua ON u.user_id = ua.user_id
