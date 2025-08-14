@@ -86,3 +86,21 @@ It provides an organized database structure for storing **users, food items, mea
 **1. Find vegan foods:**
 ```sql
 SELECT food_name FROM food_items WHERE category = 'vegan';
+
+**2. Suggest Diet Plan for People with Allergies ** 
+
+This query suggests safe food options for users based on their allergies.  
+It checks if the food **does not contain** the allergen the user is allergic to.
+
+```sql
+SELECT DISTINCT u.full_name, f.food_name
+FROM users u
+JOIN user_allergies ua ON u.user_id = ua.user_id
+JOIN allergies a ON ua.allergy_id = a.allergy_id
+JOIN food_items f ON (
+    (a.allergy_name = 'Nuts' AND f.contains_nuts = FALSE) OR
+    (a.allergy_name = 'Lactose' AND f.is_dairy = FALSE) OR
+    (a.allergy_name = 'Gluten' AND f.is_gluten = FALSE)
+)
+ORDER BY u.full_name;
+
